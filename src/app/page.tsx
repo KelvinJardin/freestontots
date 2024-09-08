@@ -6,7 +6,9 @@ import Gallery from "@/app/Gallery";
 import OpenTimes from "@/app/OpenTimes";
 import Section from "@/components/Section";
 import { auth } from "@/app/auth";
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
+
+type Content = Prisma.ContentGetPayload<{}>;
 
 const prisma = new PrismaClient();
 
@@ -40,12 +42,16 @@ export default async function FreestonTotsPage() {
 
   const openTimes = await prisma.openTimes.findMany();
 
-  const sectionsDetails = contents.reduce((acc, content) => {
+  type ContentMap = {
+    [key: string]: typeof contents[number]; // This sets the type of each entry to match the `contents` array items
+  };
+
+  const sectionsDetails = contents.reduce((acc: ContentMap, content: Content) => {
     acc[content.heading] = content;
     return acc;
   }, {});
 
-  const withContent = {
+  const withContent: {[key: string]: React.JSX.Element} = {
     "Gallery": <Gallery />,
     "Open Times": <OpenTimes openTimes={openTimes}/>,
   };

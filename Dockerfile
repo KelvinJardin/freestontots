@@ -27,12 +27,15 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
+RUN npx prisma generate
+
 RUN \
-  if [ -f yarn.lock ]; then echo "running yarn install" && yarn run build; \
-  elif [ -f package-lock.json ]; then echo "running npm install" && npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then echo "running pnpm install" && corepack enable pnpm && pnpm run build; \
+  if [ -f yarn.lock ]; then echo "running yarn build" && yarn run build; \
+  elif [ -f package-lock.json ]; then echo "running npm build" && npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then echo "running pnpm build" && corepack enable pnpm && pnpm run build; \
   else echo "Lockfile not found." && exit 1; \
   fi
+
 
 # Production image, copy all the files and run next
 FROM base AS runner

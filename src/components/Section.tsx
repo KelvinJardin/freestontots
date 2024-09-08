@@ -13,11 +13,12 @@ interface sectionProps {
     content?: Content,
     children?: React.ReactNode,
     authed: boolean,
+    updatable: boolean,
 }
 
 export default function Section({style, heading, content: sectionContent, children, authed, updatable}: sectionProps) {
     const [modalOpen, setModalOpen] = useState(false);
-    const [content, setContent] = useState<Content>(sectionContent);
+    const [content, setContent] = useState<Content | null | undefined>(sectionContent);
 
     const handleOpenModal = () => setModalOpen(true);
     const handleCloseModal = () => setModalOpen(false);
@@ -64,7 +65,7 @@ export default function Section({style, heading, content: sectionContent, childr
             {children}
         </div>
 
-        {updatable && <EditContentModal
+        {updatable && content && <EditContentModal
 			open={modalOpen}
 			onClose={handleCloseModal}
 			content={content}
