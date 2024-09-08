@@ -1,0 +1,7 @@
+services:
+  freestontots:
+    image: registry.byjardin.co.uk/kelv/freestontots:latest
+    container_name: freestontots_local
+    restart: always
+    ports:
+      - '3000:3000'
