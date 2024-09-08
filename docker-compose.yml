@@ -1,7 +1,24 @@
 services:
   freestontots:
-    image: registry.byjardin.co.uk/kelv/freestontots:latest
+    image: registry.byjardin.co.uk/kelv/freestontots
     container_name: freestontots_local
+    env_file:
+      - .env.local
     restart: always
+    networks:
+      - nginx_proxy
     ports:
-      - '3000:3000'
+      - '8081:3000' # Optional, for local testing
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.freestontots.rule=Host(`freestontots.byjardin.co.uk`)"
+      - "traefik.http.services.freestontots.loadbalancer.server.port=3000"
+    volumes:
+      - db-data:/prisma/db.db
+
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  nginx_proxy:

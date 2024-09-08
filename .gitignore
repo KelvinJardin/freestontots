@@ -42,4 +42,4 @@ next-env.d.ts
 .env
 
 # dev dbs
-/prisma/db.db*
+db.db*
