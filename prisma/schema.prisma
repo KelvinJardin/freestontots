@@ -84,3 +84,21 @@ model Authenticator {
 
   @@id([userId, credentialID])
 }
+
+model Content {
+  id         String   @id @default(cuid())
+  heading    String   @unique
+  subHeading String?
+  text       String?
+  updatedAt  DateTime @updatedAt
+}
+
+model OpenTimes {
+  id             String   @id @default(cuid())
+  day            String
+  morningOpen    String?
+  morningClose   String?
+  afternoonOpen  String?
+  afternoonClose String?
+  updatedAt      DateTime @updatedAt
+}

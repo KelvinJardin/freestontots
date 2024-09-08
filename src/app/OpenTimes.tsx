@@ -1,21 +1,10 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React from "react";
 
-const rows = [
-  ["Monday", "8:30 - 11:30", "12:30 - 15:30" ],
-  ["Tuesday", "8:30 - 11:30", "12:30 - 15:30" ],
-  ["Wednesday", "8:30 - 11:30", "12:30 - 15:30" ],
-  ["Thursday", "8:30 - 11:30", "12:30 - 15:30" ],
-  ["Friday", "8:30 - 11:30", "12:30 - 15:30" ],
-  ["Saturday", "-", "-" ],
-  ["Sunday", "-", "-" ],
-];
-
-export default function OpenTimes() {
+export default function OpenTimes({openTimes}) {
   return (
     <div className="mr-2 w-[82%] md:mr-0 md:w-full">
-
       <div className="flex flex-col">
         <table>
           <thead>
@@ -32,13 +21,17 @@ export default function OpenTimes() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row, index) => (
+            {openTimes.map((row, index) => (
               <tr key={index}>
-                {row.map((cell, index) => (
-                  <td key={index} className="w-[32%] items-center text-center justify-center border-b-2 border-solid border-gray-300 px-2 text-[13.13px] sm:w-full">
-                    {cell}
-                  </td>
-                ))}
+                <td className="border-b-2 border-solid text-center border-gray-300 px-2 text-[13.13px] sm:w-full">
+                  {row.day}
+                </td>
+                <td className="border-b-2 border-solid text-center border-gray-300 px-2 text-[13.13px] sm:w-full">
+                  {row.morningOpen} - {row.morningClose}
+                </td>
+                <td className="border-b-2 border-solid text-center border-gray-300 px-2 text-[13.13px] sm:w-full">
+                  {row.afternoonOpen} - {row.afternoonClose}
+                </td>
               </tr>
             ))}
           </tbody>

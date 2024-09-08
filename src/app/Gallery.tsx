@@ -17,15 +17,15 @@ const images = [
 
 export default function Gallery() {
   return (
-    <Carousel sx={{width: '620px', height: '340px'}}>
+    <Carousel sx={{width: '650px', height: '550px'}}>
       {
         images.map( (item, i) =>
           <Image
             key={i}
             src={`/images/${item}`}
             alt={`image ${i}`}
-            width={600}
-            height={300}
+            width={650}
+            height={550}
           />
         )
       }
