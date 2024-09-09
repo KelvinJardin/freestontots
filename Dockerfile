@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:19-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -25,7 +25,8 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN corepack enable pnpm && pnpm run build;
+RUN corepack enable pnpm;
+RUN pnpm run build;
 
 # Production image, copy all the files and run next
 FROM base AS runner
@@ -59,4 +60,3 @@ ENV PORT=3000
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
 ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]

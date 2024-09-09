@@ -7,18 +7,35 @@ services:
     restart: always
     networks:
       - nginx_proxy
+      - mysql_db_network
     ports:
       - '8081:3000' # Optional, for local testing
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.freestontots.rule=Host(`freestontots.byjardin.co.uk`)"
-      - "traefik.http.services.freestontots.loadbalancer.server.port=3000"
+    depends_on:
+      - db
+    command: >
+      sh -c "
+      node server.js
+      "
+
+  db:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secureRootPassword
+      MYSQL_DATABASE: freestontots_db
+      MYSQL_USER: mysqlUser
+      MYSQL_PASSWORD: securePassword
+    networks:
+      - mysql_db_network
     volumes:
-      - db-data:/prisma/db.db
+      - db-data:/var/lib/mysql
+    ports:
+      - '3306:3306'
 
 volumes:
   db-data:
-    driver: local
 
 networks:
   nginx_proxy:
+  mysql_db_network:
