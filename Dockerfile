@@ -8,6 +8,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json  pnpm-lock.yaml* ./
+RUN rm -rf node_modules
 RUN corepack enable pnpm && pnpm i --frozen-lockfile;
 
 COPY prisma/ ./
@@ -17,7 +18,7 @@ RUN npm install -g prisma && prisma generate
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
