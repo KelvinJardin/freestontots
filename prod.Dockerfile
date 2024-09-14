@@ -68,3 +68,8 @@ ARG ENV_VARIABLE
 ENV ENV_VARIABLE=${ENV_VARIABLE}
 ARG NEXT_PUBLIC_ENV_VARIABLE
 ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
+
+RUN corepack enable pnpm
+
+# npx prisma migrate dev && npx prisma generate && pnpm dev
+CMD ["sh", "-c", "npx prisma migrate deploy && npx prisma generate && pnpm start"]
