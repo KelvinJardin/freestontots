@@ -64,12 +64,17 @@ export default async function FreestonTotsPage() {
             sections.map(
               (heading, index) => {
                 const Content = withContent[heading];
+                const sectionContent = sectionsDetails[heading] ?? {
+                    heading,
+                    subHeading: "",
+                    text: "",
+                };
 
                 return <Section
                     key={index}
                     style={{ backgroundColor: index % 2 === 0 ? offsetColour : "white" }}
                     heading={heading}
-                    content={sectionsDetails[heading]}
+                    content={sectionContent}
                     authed={!!authed}
                     updatable={heading !== "Gallery"}
                 >

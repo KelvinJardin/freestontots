@@ -7,16 +7,16 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import EditContentModal from "@/components/EditContentModal";
 import { Content } from '@prisma/client';
 
-interface sectionProps {
+interface SectionProps {
     style: React.CSSProperties,
     heading: string,
-    content?: Content,
+    content: Content,
     children?: React.ReactNode,
     authed: boolean,
     updatable: boolean,
 }
 
-export default function Section({style, heading, content: sectionContent, children, authed, updatable}: sectionProps) {
+export default function Section({style, heading, content: sectionContent, children, authed, updatable}: SectionProps) {
     const [modalOpen, setModalOpen] = useState(false);
     const [content, setContent] = useState<Content | null | undefined>(sectionContent);
 
@@ -65,7 +65,7 @@ export default function Section({style, heading, content: sectionContent, childr
             {children}
         </div>
 
-        {updatable && content && <EditContentModal
+        {updatable && <EditContentModal
 			open={modalOpen}
 			onClose={handleCloseModal}
 			content={content}
