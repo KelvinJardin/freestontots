@@ -5,7 +5,7 @@ import { Content } from '@prisma/client';
 interface EditContentModalProps {
     open: boolean;
     onClose: () => void;
-    content: Content | undefined;
+    content: Content | null | undefined;
     onSave: (updatedContent: Content) => void;
 }
 
