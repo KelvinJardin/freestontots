@@ -3,7 +3,7 @@
 IMAGE_NAME="registry.byjardin.co.uk/kelv/freestontots:latest"
 
 # Build the Docker image
-docker build -t $IMAGE_NAME .
+docker build -t $IMAGE_NAME -f prod.Dockerfile .
 
 if [ $? -ne 0 ]; then
   echo "Docker build failed, exiting..."
