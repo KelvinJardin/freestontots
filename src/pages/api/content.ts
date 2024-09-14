@@ -12,13 +12,15 @@ interface UpdateContentRequest {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        const { id, heading, subHeading, text }: UpdateContentRequest = req.body;
+        const { id = '', heading, subHeading, text }: UpdateContentRequest = req.body;
 
         try {
-            const updatedContent = await prisma.content.update({
-                where: { id },
-                data: { heading, subHeading, text },
+            const updatedContent = await prisma.content.upsert({
+                where: { id }, // Use an empty string for id if not provided
+                update: { heading, subHeading, text },
+                create: { heading, subHeading, text },
             });
+
             res.status(200).json(updatedContent);
         } catch (error) {
             console.error('Error updating content:', error);

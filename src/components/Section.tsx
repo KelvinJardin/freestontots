@@ -22,7 +22,7 @@ export default function Section({style, heading, content: sectionContent, childr
 
     const handleOpenModal = () => setModalOpen(true);
     const handleCloseModal = () => setModalOpen(false);
-    const onSave = async (content: Content) => setContent(content);
+    const onSave = (content: Content) => setContent(content);
 
     const headingContent = authed && updatable ? (
         <button onClick={handleOpenModal}>
