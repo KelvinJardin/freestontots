@@ -1,15 +1,13 @@
 "use client";
 
 import React from "react";
-import { Prisma } from '@prisma/client';
-
-type OpenTimes = Prisma.OpenTimesGetPayload<{}>;
+import { OpenTimes } from '@prisma/client';
 
 interface OpenTimesProps {
-    openTimes: OpenTimes[];
+    times: OpenTimes[];
 }
 
-export default function OpenTimes({openTimes}: OpenTimesProps): React.ReactElement {
+export default function OpenTimesContainer({times}: OpenTimesProps): React.ReactElement {
     return (
         <div className="mr-2 w-[82%] md:mr-0 md:w-full">
             <div className="flex flex-col">
@@ -33,13 +31,13 @@ export default function OpenTimes({openTimes}: OpenTimesProps): React.ReactEleme
                         </tr>
                     </thead>
                     <tbody>
-                        {openTimes.map((row, index) => (
+                        {times.map((time: OpenTimes, index: number) => (
                             <tr key={index}>
                                 {
                                     [
-                                        row.day,
-                                        `${row.morningOpen} - ${row.morningClose}`,
-                                        `${row.afternoonOpen} - ${row.afternoonClose}`,
+                                        time.day,
+                                        `${time.morningOpen} - ${time.morningClose}`,
+                                        `${time.afternoonOpen} - ${time.afternoonClose}`,
                                     ].map((cell, index) => (
                                         <td
                                             key={index}

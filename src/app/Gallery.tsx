@@ -5,7 +5,6 @@ import Carousel from "react-material-ui-carousel";
 import Image from "next/image";
 
 const images = [
-  "img_home.png",
   "img_inside1.jpg",
   "img_inside2.jpg",
   "img_inside3.jpg",

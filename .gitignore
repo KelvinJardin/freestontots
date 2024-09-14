@@ -43,3 +43,6 @@ next-env.d.ts
 
 # dev dbs
 db.db*
+
+# pnpm
+.pnpm-store
