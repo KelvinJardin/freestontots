@@ -16,8 +16,6 @@ services:
     networks:
       - nginx_proxy
       - freestontots
-    command: >
-      sh -c "npx prisma migrate dev && npx prisma generate && pnpm dev"
 
   db:
     container_name: db
