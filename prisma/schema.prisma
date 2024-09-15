@@ -93,7 +93,7 @@ model Content {
   id         String   @id @default(cuid())
   heading    String   @unique
   subHeading String?
-  text       String?
+  text       String?  @db.LongText
   updatedAt  DateTime @updatedAt
 }
 
