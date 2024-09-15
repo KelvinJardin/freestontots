@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { Modal, Box, TextField, Button, Typography } from '@mui/material';
-import { Content } from '@prisma/client';
+import { Content, User } from '@prisma/client';
 
 interface EditContentModalProps {
     open: boolean;
     onClose: () => void;
-    content: Content | null | undefined;
+    content?: Content | null | undefined;
     onSave: (updatedContent: Content) => void;
+    user?: { id?: string; admin?: boolean };
 }
 
-const EditContentModal: React.FC<EditContentModalProps> = ({ open, onClose, content, onSave }) => {
+const EditContentModal: React.FC<EditContentModalProps> = ({open, onClose, content, onSave, user}) => {
     const [updatedContent, setUpdatedContent] = useState<Content>(content!);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setUpdatedContent((prev) => ({
             ...prev,
             [name]: value,
@@ -22,12 +23,17 @@ const EditContentModal: React.FC<EditContentModalProps> = ({ open, onClose, cont
 
     const handleSave = async () => {
         try {
+            const body = JSON.stringify({
+                ...updatedContent,
+                user: user?.id,
+            });
+
             const response = await fetch('/api/content', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(updatedContent),
+                body,
             });
 
             if (!response.ok) {
@@ -80,11 +86,11 @@ const EditContentModal: React.FC<EditContentModalProps> = ({ open, onClose, cont
                     multiline
                     rows={4}
                 />
-                <Box sx={{ mt: 2 }}>
+                <Box sx={{mt: 2}}>
                     <Button variant="outlined" color="secondary" onClick={onClose}>
                         Cancel
                     </Button>
-                    <Button variant="outlined" color="success" onClick={handleSave} sx={{ float: 'right' }}>
+                    <Button variant="outlined" color="success" onClick={handleSave} sx={{float: 'right'}}>
                         Save
                     </Button>
                 </Box>

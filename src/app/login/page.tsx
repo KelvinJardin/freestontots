@@ -1,9 +1,6 @@
 import { auth } from "@/app/auth";
 import { GoogleSignIn as Login, Logout } from "@/components/Auth";
-import { PrismaClient } from '@prisma/client';
 import { Button } from "@mui/material";
-
-const prisma = new PrismaClient();
 
 export default async function() {
     const session = await auth();

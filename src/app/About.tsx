@@ -1,9 +1,7 @@
 import { Heading, Text } from "@/components";
 import React from "react";
 import { auth } from "@/app/auth";
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '@/app/db';
 
 export default async function About() {
     return (

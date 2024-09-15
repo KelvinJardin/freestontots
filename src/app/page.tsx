@@ -6,11 +6,8 @@ import Gallery from "@/app/Gallery";
 import OpenTimes from "@/app/OpenTimes";
 import Section from "@/components/Section";
 import { auth } from "@/app/auth";
-import { PrismaClient, Prisma } from '@prisma/client';
-
-type Content = Prisma.ContentGetPayload<{}>;
-
-const prisma = new PrismaClient();
+import { Content } from '@prisma/client';
+import prisma from '@/app/db';
 
 export const metadata: Metadata = {
   title: "Freeston Tots",
@@ -31,6 +28,7 @@ const sections = [
 export default async function FreestonTotsPage() {
   const session = await auth();
   const authed = session?.user;
+  const user = authed ? await prisma.user.findFirst({where: {id: authed?.id}}) : null;
 
   const contents = await prisma.content.findMany({
     where: {
@@ -75,7 +73,7 @@ export default async function FreestonTotsPage() {
                     style={{ backgroundColor: index % 2 === 0 ? offsetColour : "white" }}
                     heading={heading}
                     content={sectionContent}
-                    authed={!!authed}
+                    user={{id: user?.id, admin: user?.admin}}
                     updatable={heading !== "Gallery"}
                 >
                   {Content}

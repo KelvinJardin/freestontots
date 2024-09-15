@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '@/app/db';
 
 interface UpdateContentRequest {
     id: string;
@@ -11,6 +9,15 @@ interface UpdateContentRequest {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const { userId } = req.body;
+
+    const requester = await prisma.user.findFirst({where: {id: userId}});
+
+    if (!requester?.admin) {
+        res.status(403).json({ error: 'Unauthorized' });
+        return;
+    }
+
     if (req.method === 'POST') {
         const { id = '', heading, subHeading, text }: UpdateContentRequest = req.body;
 

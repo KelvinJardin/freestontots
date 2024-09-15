@@ -5,18 +5,18 @@ import { Heading } from "@/components/Heading";
 import { Text } from "@/components/Text";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import EditContentModal from "@/components/EditContentModal";
-import { Content } from '@prisma/client';
+import { Content, User } from '@prisma/client';
 
 interface SectionProps {
     style: React.CSSProperties,
     heading: string,
     content: Content,
     children?: React.ReactNode,
-    authed: boolean,
+    user?: { id?: string, admin?: boolean },
     updatable: boolean,
 }
 
-export default function Section({style, heading, content: sectionContent, children, authed, updatable}: SectionProps) {
+export default function Section({style, heading, content: sectionContent, children, user, updatable}: SectionProps) {
     const [modalOpen, setModalOpen] = useState(false);
     const [content, setContent] = useState<Content | null | undefined>(sectionContent);
 
@@ -24,9 +24,9 @@ export default function Section({style, heading, content: sectionContent, childr
     const handleCloseModal = () => setModalOpen(false);
     const onSave = (content: Content) => setContent(content);
 
-    const headingContent = authed && updatable ? (
+    const headingContent = user?.admin && updatable ? (
         <button onClick={handleOpenModal}>
-            {content?.heading || heading} <EditOutlinedIcon />
+            {content?.heading || heading} <EditOutlinedIcon/>
         </button>
     ) : (
         content?.heading || heading
@@ -65,11 +65,12 @@ export default function Section({style, heading, content: sectionContent, childr
             {children}
         </div>
 
-        {updatable && <EditContentModal
+        {updatable && user?.admin && <EditContentModal
 			open={modalOpen}
 			onClose={handleCloseModal}
 			content={content}
 			onSave={onSave}
+			user={user}
 		/>}
     </div>);
 }
