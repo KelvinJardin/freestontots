@@ -10,7 +10,7 @@ export default function Home() {
         <Heading size="text4xl" as="h1" className="text-shadow-ts1 relative z-[1] !text-white-a700 sm:text-[25px]">
           Welcome to Freeston Tots
         </Heading>
-        <Heading size="text3xl" as="h2" className="text-shadow-ts1 relative mb-[50px] !text-white-a700 sm:text-[20px]">
+        <Heading size="text2xl" as="h2" className="text-shadow-ts1 relative z-[1] !text-white-a700 sm:text-[25px]">
           Where Every Child Matters
         </Heading>
       </div>
