@@ -7,8 +7,11 @@ RUN corepack enable pnpm && pnpm i
 
 COPY src ./src
 COPY public ./public
-COPY next.config.js .
 COPY tsconfig.json .
+COPY .eslintrc.json .
+COPY next.config.js .
+COPY postcss.config.js .
+COPY tailwind.config.js .
 COPY prisma/ ./prisma
 
 RUN pnpm install prisma && \
@@ -20,4 +23,8 @@ ENV ENV_VARIABLE=${ENV_VARIABLE}
 ARG NEXT_PUBLIC_ENV_VARIABLE
 ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
 
-CMD ["sh", "-c", "npx prisma migrate deploy && node .next/standalone/server.js"]
+CMD ["sh", "-c", "\
+	npx prisma migrate deploy &&\
+	npx prisma generate &&\
+	npx next start -H 0.0.0.0\
+"]

@@ -15,7 +15,7 @@ export default function Header({ ...props }: Props) {
       >
         <div className="mb-6 flex items-center gap-1">
           <Img
-            src="img_bare_logo_png.png"
+            src="img_logo.png"
             width={80}
             height={80}
             alt="Barelogopng"
