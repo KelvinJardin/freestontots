@@ -14,7 +14,6 @@ services:
     depends_on:
       - db
     networks:
-      - nginx_proxy
       - freestontots
 
   db:
@@ -38,5 +37,4 @@ volumes:
   db-data:
 
 networks:
-  nginx_proxy:
   freestontots:
