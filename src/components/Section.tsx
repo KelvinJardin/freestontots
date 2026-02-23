@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React, { useState } from "react";
-import { Heading } from "@/components/Heading";
-import { Text } from "@/components/Text";
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import React, {useState} from "react";
+import {Heading} from "@/components/Heading";
+import {Text} from "@/components/Text";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import EditContentModal from "@/components/EditContentModal";
-import { Content, User } from '@prisma/client';
+import {Content} from "@prisma/client";
 
 interface SectionProps {
     style: React.CSSProperties,
@@ -43,34 +43,34 @@ export default function Section({style, heading, content: sectionContent, childr
             </Heading>
             {
                 content?.subHeading &&
-				<Heading
-					size="textlg"
-					as="h3"
-					className="text-center !text-[18px] !font-normal leading-[26px] !text-blue_gray-700_01 pb-[15px]"
-				>
+                <Heading
+                    size="textlg"
+                    as="h3"
+                    className="text-center !text-[18px] !font-normal leading-[26px] !text-blue_gray-700_01 pb-[15px]"
+                >
                     {content?.subHeading}
-				</Heading>
+                </Heading>
             }
             {
                 content?.text &&
-				<Text as="p" className="self-stretch text-center !text-[15px] leading-5">
+                <Text as="p" className="self-stretch text-center !text-[15px] leading-5">
                     {content?.text.split("\n").map((line, index) => (
                         <React.Fragment key={index}>
                             {line}
                             <br/>
                         </React.Fragment>
                     ))}
-				</Text>
+                </Text>
             }
             {children}
         </div>
 
         {updatable && user?.admin && <EditContentModal
-			open={modalOpen}
-			onClose={handleCloseModal}
-			content={content}
-			onSave={onSave}
-			user={user}
-		/>}
+            open={modalOpen}
+            onClose={handleCloseModal}
+            content={content}
+            onSave={onSave}
+            user={user}
+        />}
     </div>);
 }

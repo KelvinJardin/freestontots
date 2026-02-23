@@ -51,7 +51,7 @@ export default async function FreestonTotsPage() {
 
   const withContent: {[key: string]: React.JSX.Element} = {
     "Gallery": <Gallery />,
-    "Open Times": <OpenTimes times={openTimes}/>,
+    "Open Times": <OpenTimes times={openTimes} user={{id: user?.id, admin: user?.admin}}/>,
   };
 
   return (
