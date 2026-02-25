@@ -33,7 +33,7 @@ const sections = [
 ];
 
 // Wave divider: fill matches the NEXT section's background color
-function WaveDivider({ fill }: { fill: string }) {
+function WaveDivider({ fill }: Readonly<{ fill: string }>) {
   return (
     <div style={{ overflow: "hidden", lineHeight: 0, width: "100%" }}>
       <svg
@@ -65,6 +65,7 @@ export default async function FreestonTotsPage() {
   });
 
   const openTimes = await prisma.openTimes.findMany();
+  const galleryImages = await prisma.galleryImage.findMany({ orderBy: { createdAt: 'asc' } });
 
   type ContentMap = {
     [key: string]: typeof contents[number];
@@ -76,7 +77,7 @@ export default async function FreestonTotsPage() {
   }, {});
 
   const withContent: {[key: string]: React.JSX.Element} = {
-    "Gallery": <Gallery />,
+    "Gallery": <Gallery images={galleryImages} user={{id: user?.id, admin: user?.admin}} />,
     "Open Times": <OpenTimes times={openTimes} user={{id: user?.id, admin: user?.admin}}/>,
     "Contact": (
       <a
@@ -120,7 +121,7 @@ export default async function FreestonTotsPage() {
         const nextBg = sectionBgs[index + 1];
 
         return (
-          <React.Fragment key={index}>
+          <React.Fragment key={heading}>
             <Section
               style={{ backgroundColor: currentBg }}
               heading={heading}

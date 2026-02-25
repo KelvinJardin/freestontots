@@ -58,6 +58,31 @@ async function main() {
     await prisma.openTimes.createMany({ data: openTimes });
 
     console.log('Seeded open times.');
+
+    // Seed existing static images as gallery images
+    const staticImages = [
+        'img_inside1.jpg',
+        'img_inside2.jpg',
+        'img_inside3.jpg',
+        'img_outside1.jpg',
+        'img_outside2.jpg',
+        'img_outside3.jpg',
+        'img_outside4.jpg',
+    ];
+
+    for (const filename of staticImages) {
+        await prisma.galleryImage.upsert({
+            where: { filename },
+            update: {},
+            create: {
+                filename,
+                url: `/images/${filename}`,
+                inGallery: true,
+            },
+        });
+    }
+
+    console.log('Seeded gallery images.');
 }
 
 main()

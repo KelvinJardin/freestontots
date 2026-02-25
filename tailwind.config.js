@@ -2,6 +2,9 @@ module.exports = {
   mode: "jit",
   content: ["./src/**/**/*.{js,ts,jsx,tsx,html,mdx}", "./src/**/*.{js,ts,jsx,tsx,html,mdx}"],
   darkMode: "class",
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     screens: { md: { max: "1050px" }, sm: { max: "550px" } },
     extend: {
@@ -36,5 +39,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms")({ strategy: "class" })],
 };
