@@ -1,7 +1,23 @@
+:root {
+  --clr-primary: #C8693A;
+  --clr-primary-light: #F0956A;
+  --clr-secondary: #4A8B6E;
+  --clr-secondary-light: #7BBFA0;
+  --clr-accent: #F0B429;
+  --clr-bg: #FFFBF4;
+  --clr-surface: #FFF6EC;
+  --clr-surface-alt: #F5F0E8;
+  --clr-text: #2D2419;
+  --clr-text-muted: #7A6148;
+  --clr-border: #E8D5C0;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: Inter;
+  font-family: 'Lato', sans-serif;
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
 }
 
 * {
@@ -43,4 +59,60 @@ table {
 
 .scroll-bounce {
   animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.wave-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-divider svg {
+  display: block;
+  width: 100%;
+}
+
+.section-dots {
+  background-image: radial-gradient(circle, var(--clr-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeInUp 0.6s ease both;
+  animation-fill-mode: both;
+}
+
+.animate-in-delay-1 {
+  animation: fadeInUp 0.6s ease both;
+  animation-delay: 0.1s;
+  animation-fill-mode: both;
+}
+
+.animate-in-delay-2 {
+  animation: fadeInUp 0.6s ease both;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.animate-in-delay-3 {
+  animation: fadeInUp 0.6s ease both;
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+.animate-in-delay-4 {
+  animation: fadeInUp 0.6s ease both;
+  animation-delay: 0.6s;
+  animation-fill-mode: both;
 }

@@ -38,7 +38,7 @@ export default function Section({
         style={{ maxWidth: 860, gap: "1.25rem" }}
       >
         {/* Heading row */}
-        <div className="flex flex-col items-center" style={{ gap: "0.6rem" }}>
+        <div className="flex flex-col items-center animate-in" style={{ gap: "0.75rem" }}>
           {user?.admin && updatable ? (
             <button
               onClick={() => setModalOpen(true)}
@@ -46,45 +46,74 @@ export default function Section({
               style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
             >
               <h2
-                className="font-bold text-gray-800 font-inter group-hover:text-sky-500 transition-colors"
-                style={{ fontSize: "1.9rem", lineHeight: 1.2 }}
+                className="font-bold text-center group-hover:text-[#C8693A] transition-colors"
+                style={{
+                  fontSize: "1.9rem",
+                  lineHeight: 1.2,
+                  fontFamily: "'Nunito', sans-serif",
+                  color: "var(--clr-text)",
+                }}
               >
                 {displayHeading}
               </h2>
               <EditOutlinedIcon
-                className="text-gray-400 group-hover:text-sky-500 transition-colors"
+                className="transition-colors"
                 fontSize="small"
+                style={{ color: "var(--clr-text-muted)" }}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.color = "var(--clr-primary)")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.color = "var(--clr-text-muted)")
+                }
               />
             </button>
           ) : (
             <h2
-              className="font-bold text-gray-800 font-inter text-center"
-              style={{ fontSize: "1.9rem", lineHeight: 1.2 }}
+              className="font-bold text-center"
+              style={{
+                fontSize: "1.9rem",
+                lineHeight: 1.2,
+                fontFamily: "'Nunito', sans-serif",
+                color: "var(--clr-text)",
+              }}
             >
               {displayHeading}
             </h2>
           )}
 
-          {/* Accent bar */}
-          <div
-            style={{
-              width: 40,
-              height: 3,
-              borderRadius: 9999,
-              backgroundColor: "#0ea5e9",
-            }}
-          />
+          {/* Accent bar with golden dot */}
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <div
+              style={{
+                width: 56,
+                height: 3,
+                borderRadius: 9999,
+                backgroundColor: "var(--clr-primary)",
+              }}
+            />
+            <div
+              style={{
+                width: 7,
+                height: 7,
+                borderRadius: "50%",
+                backgroundColor: "var(--clr-accent)",
+                flexShrink: 0,
+              }}
+            />
+          </div>
         </div>
 
         {content?.subHeading && (
           <p
-            className="text-center font-inter"
+            className="text-center animate-in-delay-1"
             style={{
-              color: "#64748b",
+              color: "var(--clr-text-muted)",
               fontSize: "1.05rem",
               fontWeight: 500,
               lineHeight: 1.6,
               maxWidth: 560,
+              fontFamily: "'Lato', sans-serif",
             }}
           >
             {content.subHeading}
@@ -93,12 +122,13 @@ export default function Section({
 
         {content?.text && (
           <p
-            className="text-center font-inter"
+            className="text-center animate-in-delay-2"
             style={{
-              color: "#475569",
+              color: "var(--clr-text)",
               fontSize: "0.95rem",
               lineHeight: 1.75,
               maxWidth: 680,
+              fontFamily: "'Lato', sans-serif",
             }}
           >
             {content.text.split("\n").map((line, index) => (

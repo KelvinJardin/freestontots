@@ -3,43 +3,110 @@ import React from "react";
 
 export default function Home() {
   return (
-    <div>
-      <Header />
-      {/* Hero */}
+    <div style={{ position: "relative" }}>
+      {/* Header overlays hero */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 50 }}>
+        <Header />
+      </div>
+
+      {/* Hero — full viewport height */}
       <div
-        className="relative flex flex-col items-center justify-center bg-[url(/images/img_home.png)] bg-cover bg-center bg-no-repeat px-6"
-        style={{ minHeight: "calc(100vh - 64px)" }}
+        className="relative flex flex-col items-center justify-center bg-cover bg-center bg-no-repeat px-6"
+        style={{
+          minHeight: "100vh",
+          backgroundImage: "url(/images/img_home.png)",
+        }}
       >
-        {/* Gradient overlay */}
+        {/* Warm gradient overlay */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.5) 100%)",
+              "linear-gradient(160deg, rgba(45,36,25,0.55) 0%, rgba(200,105,58,0.35) 60%, rgba(74,139,110,0.4) 100%)",
+          }}
+        />
+
+        {/* Decorative floating blobs */}
+        <div
+          className="absolute"
+          style={{
+            top: "12%",
+            left: "8%",
+            width: 180,
+            height: 180,
+            borderRadius: "50%",
+            backgroundColor: "rgba(255,255,255,0.06)",
+            filter: "blur(32px)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            top: "20%",
+            right: "10%",
+            width: 240,
+            height: 240,
+            borderRadius: "50%",
+            backgroundColor: "rgba(255,255,255,0.05)",
+            filter: "blur(48px)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            bottom: "20%",
+            left: "15%",
+            width: 140,
+            height: 140,
+            borderRadius: "50%",
+            backgroundColor: "rgba(200,105,58,0.15)",
+            filter: "blur(40px)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          className="absolute"
+          style={{
+            bottom: "25%",
+            right: "18%",
+            width: 160,
+            height: 160,
+            borderRadius: "50%",
+            backgroundColor: "rgba(74,139,110,0.12)",
+            filter: "blur(36px)",
+            pointerEvents: "none",
           }}
         />
 
         {/* Content */}
-        <div className="relative z-10 text-center" style={{ maxWidth: 720 }}>
+        <div
+          className="relative z-10 text-center animate-in"
+          style={{ maxWidth: 720 }}
+        >
           <h1
-            className="font-bold font-inter sm:text-[1.9rem]"
+            className="animate-in sm:text-[2.2rem]"
             style={{
-              fontSize: "3.5rem",
-              lineHeight: 1.15,
+              fontSize: "4.5rem",
+              lineHeight: 1.1,
               color: "#fff",
-              filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.4))",
-              marginBottom: "0.75rem",
+              fontFamily: "'Nunito', sans-serif",
+              fontWeight: 800,
+              filter: "drop-shadow(0 2px 12px rgba(0,0,0,0.35))",
+              marginBottom: "1rem",
             }}
           >
             Welcome to Freeston Tots
           </h1>
           <p
-            className="font-inter sm:text-lg"
+            className="animate-in-delay-1 sm:text-lg"
             style={{
               fontSize: "1.4rem",
               fontWeight: 400,
               color: "#fff",
-              opacity: 0.92,
+              opacity: 0.9,
+              fontFamily: "'Lato', sans-serif",
               filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.3))",
               marginBottom: "2.5rem",
             }}
@@ -48,25 +115,26 @@ export default function Home() {
           </p>
 
           {/* CTA buttons */}
-          <div className="flex gap-4 justify-center sm:flex-col sm:items-center sm:gap-3">
+          <div className="flex gap-4 justify-center sm:flex-col sm:items-center sm:gap-3 animate-in-delay-2">
             <a
               href="#About"
-              className="font-semibold font-inter transition-all"
+              className="font-semibold transition-all"
               style={{
                 display: "inline-block",
-                backgroundColor: "#0ea5e9",
+                backgroundColor: "var(--clr-primary)",
                 color: "#fff",
                 padding: "0.75rem 1.75rem",
                 borderRadius: "9999px",
                 fontSize: "0.95rem",
-                boxShadow: "0 4px 20px rgba(14,165,233,0.4)",
+                fontFamily: "'Lato', sans-serif",
+                boxShadow: "0 4px 20px rgba(200,105,58,0.45)",
               }}
             >
               Learn More
             </a>
             <a
               href="#Contact"
-              className="font-semibold font-inter transition-all"
+              className="font-semibold transition-all"
               style={{
                 display: "inline-block",
                 backgroundColor: "rgba(255,255,255,0.15)",
@@ -74,6 +142,7 @@ export default function Home() {
                 padding: "0.75rem 1.75rem",
                 borderRadius: "9999px",
                 fontSize: "0.95rem",
+                fontFamily: "'Lato', sans-serif",
                 border: "1.5px solid rgba(255,255,255,0.5)",
                 backdropFilter: "blur(4px)",
               }}
@@ -93,7 +162,7 @@ export default function Home() {
             height="28"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="rgba(255,255,255,0.7)"
+            stroke="rgba(255,255,255,0.75)"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"

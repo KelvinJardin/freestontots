@@ -19,9 +19,10 @@ export default function Gallery() {
     <div className="w-full" style={{ maxWidth: 760, marginTop: "0.5rem" }}>
       <div
         style={{
-          borderRadius: 16,
+          borderRadius: 20,
           overflow: "hidden",
-          boxShadow: "0 4px 30px rgba(0,0,0,0.12)",
+          boxShadow: "0 8px 40px rgba(45,36,25,0.15)",
+          border: "2px solid var(--clr-border)",
         }}
       >
         <Carousel
@@ -39,15 +40,14 @@ export default function Gallery() {
           }}
         >
           {images.map((item, i) => (
-            <div
-              key={i}
-              style={{ position: "relative", width: "100%", paddingBottom: "62%" }}
-            >
+            <div key={i} style={{ width: "100%", lineHeight: 0 }}>
               <Image
                 src={`/images/${item}`}
                 alt={`Gallery image ${i + 1}`}
-                fill
+                width={760}
+                height={470}
                 className="object-cover"
+                style={{ width: "100%", height: "auto", display: "block" }}
                 sizes="(max-width: 600px) 100vw, 760px"
               />
             </div>

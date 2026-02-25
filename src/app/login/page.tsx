@@ -13,7 +13,7 @@ export default async function LoginPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #bae6fd 100%)",
+        background: "linear-gradient(135deg, #FFFBF4 0%, #FFF0D9 50%, #FFE2BE 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -26,7 +26,8 @@ export default async function LoginPage() {
           maxWidth: 380,
           backgroundColor: "#fff",
           borderRadius: 20,
-          boxShadow: "0 8px 40px rgba(0,0,0,0.1)",
+          boxShadow: "0 8px 40px rgba(200,105,58,0.12)",
+          border: "1px solid var(--clr-border)",
           padding: "2.5rem 2rem",
           display: "flex",
           flexDirection: "column",
@@ -41,7 +42,7 @@ export default async function LoginPage() {
             height: 80,
             borderRadius: "50%",
             overflow: "hidden",
-            border: "3px solid #e0f2fe",
+            border: "3px solid var(--clr-primary)",
             position: "relative",
             flexShrink: 0,
           }}
@@ -59,16 +60,29 @@ export default async function LoginPage() {
         <div style={{ textAlign: "center" }}>
           <h1
             className="font-bold font-inter"
-            style={{ fontSize: "1.5rem", color: "#1e293b", marginBottom: "0.25rem" }}
+            style={{
+              fontSize: "1.5rem",
+              color: "var(--clr-text)",
+              marginBottom: "0.25rem",
+              fontFamily: "'Nunito', sans-serif",
+              fontWeight: 800,
+            }}
           >
             Freeston Tots
           </h1>
-          <p style={{ fontSize: "0.85rem", color: "#94a3b8", fontWeight: 500 }}>
+          <p
+            style={{
+              fontSize: "0.85rem",
+              color: "var(--clr-text-muted)",
+              fontWeight: 500,
+              fontFamily: "'Lato', sans-serif",
+            }}
+          >
             Admin Portal
           </p>
         </div>
 
-        <div style={{ width: "100%", borderTop: "1px solid #f1f5f9" }} />
+        <div style={{ width: "100%", borderTop: "1px solid var(--clr-border)" }} />
 
         {authed ? (
           <div
@@ -86,14 +100,28 @@ export default async function LoginPage() {
                 width={52}
                 height={52}
                 alt={userName ?? "User"}
-                style={{ borderRadius: "50%", border: "2px solid #e0f2fe" }}
+                style={{ borderRadius: "50%", border: "2px solid var(--clr-border)" }}
               />
             )}
             <div style={{ textAlign: "center" }}>
-              <p style={{ fontWeight: 600, color: "#1e293b", fontSize: "0.95rem" }}>
+              <p
+                style={{
+                  fontWeight: 600,
+                  color: "var(--clr-text)",
+                  fontSize: "0.95rem",
+                  fontFamily: "'Lato', sans-serif",
+                }}
+              >
                 Hello, {userName}!
               </p>
-              <p style={{ color: "#94a3b8", fontSize: "0.82rem", marginTop: "0.25rem" }}>
+              <p
+                style={{
+                  color: "var(--clr-text-muted)",
+                  fontSize: "0.82rem",
+                  marginTop: "0.25rem",
+                  fontFamily: "'Lato', sans-serif",
+                }}
+              >
                 You&apos;re signed in to the admin portal.
               </p>
             </div>
@@ -109,24 +137,32 @@ export default async function LoginPage() {
               gap: "1rem",
             }}
           >
-            <p style={{ color: "#64748b", fontSize: "0.88rem", textAlign: "center" }}>
+            <p
+              style={{
+                color: "var(--clr-text-muted)",
+                fontSize: "0.88rem",
+                textAlign: "center",
+                fontFamily: "'Lato', sans-serif",
+              }}
+            >
               Sign in with your Google account to access the admin panel.
             </p>
             <Login />
           </div>
         )}
 
-        <div style={{ width: "100%", borderTop: "1px solid #f1f5f9" }} />
+        <div style={{ width: "100%", borderTop: "1px solid var(--clr-border)" }} />
 
         <Link
           href="/"
           style={{
             fontSize: "0.85rem",
-            color: "#0ea5e9",
+            color: "var(--clr-primary)",
             fontWeight: 500,
             display: "flex",
             alignItems: "center",
             gap: "0.25rem",
+            fontFamily: "'Lato', sans-serif",
           }}
         >
           ← Back to website

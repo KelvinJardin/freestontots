@@ -25,13 +25,13 @@ export default function OpenTimesContainer({ times, user }: OpenTimesProps) {
         style={{
           borderRadius: 12,
           overflow: "hidden",
-          boxShadow: "0 1px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
-          border: "1px solid #e2e8f0",
+          boxShadow: "0 1px 8px rgba(45,36,25,0.08), 0 1px 2px rgba(45,36,25,0.04)",
+          border: "1px solid var(--clr-border)",
         }}
       >
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
-            <tr style={{ backgroundColor: "#0ea5e9" }}>
+            <tr style={{ backgroundColor: "var(--clr-primary)" }}>
               {["Day", "Morning", "Afternoon"].map((h) => (
                 <th
                   key={h}
@@ -39,10 +39,11 @@ export default function OpenTimesContainer({ times, user }: OpenTimesProps) {
                     padding: "10px 14px",
                     textAlign: "left",
                     fontSize: "0.8rem",
-                    fontWeight: 600,
+                    fontWeight: 700,
                     color: "#fff",
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
+                    fontFamily: "'Nunito', sans-serif",
                   }}
                 >
                   {h}
@@ -54,15 +55,16 @@ export default function OpenTimesContainer({ times, user }: OpenTimesProps) {
             {rows.map((time, index) => (
               <tr
                 key={time.id}
-                style={{ backgroundColor: index % 2 === 0 ? "#fff" : "#f0f9ff" }}
+                style={{ backgroundColor: index % 2 === 0 ? "#fff" : "var(--clr-surface)" }}
               >
                 <td
                   style={{
                     padding: "10px 14px",
                     fontSize: "0.88rem",
                     fontWeight: 600,
-                    color: "#334155",
-                    borderBottom: "1px solid #f1f5f9",
+                    color: "var(--clr-text)",
+                    borderBottom: "1px solid var(--clr-border)",
+                    fontFamily: "'Lato', sans-serif",
                   }}
                 >
                   {time.day}
@@ -71,21 +73,23 @@ export default function OpenTimesContainer({ times, user }: OpenTimesProps) {
                   style={{
                     padding: "10px 14px",
                     fontSize: "0.88rem",
-                    color: "#475569",
-                    borderBottom: "1px solid #f1f5f9",
+                    color: "var(--clr-text-muted)",
+                    borderBottom: "1px solid var(--clr-border)",
+                    fontFamily: "'Lato', sans-serif",
                   }}
                 >
-                  {fmt(time.morningOpen)} – {fmt(time.morningClose)}
+                  {fmt(time.morningOpen)} &ndash; {fmt(time.morningClose)}
                 </td>
                 <td
                   style={{
                     padding: "10px 14px",
                     fontSize: "0.88rem",
-                    color: "#475569",
-                    borderBottom: "1px solid #f1f5f9",
+                    color: "var(--clr-text-muted)",
+                    borderBottom: "1px solid var(--clr-border)",
+                    fontFamily: "'Lato', sans-serif",
                   }}
                 >
-                  {fmt(time.afternoonOpen)} – {fmt(time.afternoonClose)}
+                  {fmt(time.afternoonOpen)} &ndash; {fmt(time.afternoonClose)}
                 </td>
               </tr>
             ))}
@@ -104,12 +108,13 @@ export default function OpenTimesContainer({ times, user }: OpenTimesProps) {
             background: "none",
             border: "none",
             cursor: "pointer",
-            color: "#94a3b8",
+            color: "var(--clr-text-muted)",
             fontSize: "0.82rem",
             padding: 0,
+            fontFamily: "'Lato', sans-serif",
           }}
-          onMouseOver={(e) => (e.currentTarget.style.color = "#0ea5e9")}
-          onMouseOut={(e) => (e.currentTarget.style.color = "#94a3b8")}
+          onMouseOver={(e) => (e.currentTarget.style.color = "var(--clr-primary)")}
+          onMouseOut={(e) => (e.currentTarget.style.color = "var(--clr-text-muted)")}
         >
           <EditOutlinedIcon fontSize="small" />
           <span>Edit times</span>

@@ -14,7 +14,14 @@ export const metadata: Metadata = {
   description: "Freeston Tots Preschool"
 };
 
-const offsetColour = "#f0f9ff";
+const sectionBgs = [
+  "var(--clr-bg)",
+  "var(--clr-surface-alt)",
+  "var(--clr-bg)",
+  "var(--clr-surface-alt)",
+  "var(--clr-bg)",
+  "var(--clr-surface-alt)",
+];
 
 const sections = [
   "About",
@@ -24,6 +31,25 @@ const sections = [
   "Gallery",
   "Contact",
 ];
+
+// Wave divider: fill matches the NEXT section's background color
+function WaveDivider({ fill }: { fill: string }) {
+  return (
+    <div style={{ overflow: "hidden", lineHeight: 0, width: "100%" }}>
+      <svg
+        viewBox="0 0 1200 60"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        style={{ display: "block", width: "100%", height: 60 }}
+      >
+        <path
+          d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z"
+          fill={fill}
+        />
+      </svg>
+    </div>
+  );
+}
 
 export default async function FreestonTotsPage() {
   const session = await auth();
@@ -41,7 +67,7 @@ export default async function FreestonTotsPage() {
   const openTimes = await prisma.openTimes.findMany();
 
   type ContentMap = {
-    [key: string]: typeof contents[number]; // This sets the type of each entry to match the `contents` array items
+    [key: string]: typeof contents[number];
   };
 
   const sectionsDetails = contents.reduce((acc: ContentMap, content: Content) => {
@@ -68,7 +94,7 @@ export default async function FreestonTotsPage() {
           borderRadius: "9999px",
           fontSize: "0.88rem",
           fontWeight: 600,
-          fontFamily: "Inter, sans-serif",
+          fontFamily: "'Lato', sans-serif",
           textDecoration: "none",
         }}
       >
@@ -81,34 +107,55 @@ export default async function FreestonTotsPage() {
   };
 
   return (
-      <div className="w-full bg-white-a700">
-        <div>
-          <Home />
-          {
-            sections.map(
-              (heading, index) => {
-                const Content = withContent[heading];
-                const sectionContent = sectionsDetails[heading] ?? {
-                    heading,
-                    subHeading: "",
-                    text: "",
-                };
+    <div className="w-full" style={{ backgroundColor: "var(--clr-bg)" }}>
+      <Home />
+      {sections.map((heading, index) => {
+        const SectionContent = withContent[heading];
+        const sectionContent = sectionsDetails[heading] ?? {
+          heading,
+          subHeading: "",
+          text: "",
+        };
+        const currentBg = sectionBgs[index];
+        const nextBg = sectionBgs[index + 1];
 
-                return <Section
-                    key={index}
-                    style={{ backgroundColor: index % 2 === 0 ? offsetColour : "white" }}
-                    heading={heading}
-                    content={sectionContent}
-                    user={{id: user?.id, admin: user?.admin}}
-                    updatable={heading !== "Gallery"}
-                >
-                  {Content}
-                </Section>
-              }
-            )
-          }
-          {/*<Map />*/}
-        </div>
-      </div>
+        return (
+          <React.Fragment key={index}>
+            <Section
+              style={{ backgroundColor: currentBg }}
+              heading={heading}
+              content={sectionContent}
+              user={{id: user?.id, admin: user?.admin}}
+              updatable={heading !== "Gallery"}
+            >
+              {SectionContent}
+            </Section>
+            {nextBg && (
+              <WaveDivider fill={nextBg} />
+            )}
+          </React.Fragment>
+        );
+      })}
+      {/*<Map />*/}
+
+      <footer
+        style={{
+          backgroundColor: "#2D2419",
+          padding: "1.5rem",
+          textAlign: "center",
+        }}
+      >
+        <p
+          style={{
+            color: "var(--clr-bg)",
+            fontSize: "0.82rem",
+            fontFamily: "'Lato', sans-serif",
+            opacity: 0.75,
+          }}
+        >
+          &copy; 2025 Freeston Tots
+        </p>
+      </footer>
+    </div>
   );
 }
