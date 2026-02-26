@@ -11,7 +11,12 @@ const navLinks = [
   { label: "Contact", href: "#Contact" },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  isAdmin?: boolean;
+  onAddSection?: () => void;
+}
+
+export default function Header({ isAdmin, onAddSection }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -100,6 +105,33 @@ export default function Header() {
               {label}
             </Link>
           ))}
+
+          {isAdmin && onAddSection && (
+            <button
+              onClick={onAddSection}
+              style={{
+                backgroundColor: "var(--clr-primary)",
+                color: "#fff",
+                border: "none",
+                borderRadius: "9999px",
+                padding: "0.35rem 0.9rem",
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                fontFamily: "'Lato', sans-serif",
+                cursor: "pointer",
+                transition: "background-color 0.15s",
+                whiteSpace: "nowrap",
+              }}
+              onMouseOver={(e) =>
+                ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "#3DA3D9")
+              }
+              onMouseOut={(e) =>
+                ((e.currentTarget as HTMLButtonElement).style.backgroundColor = "var(--clr-primary)")
+              }
+            >
+              + Add Section
+            </button>
+          )}
         </nav>
 
         {/* Hamburger — show on <=1050px */}
@@ -151,7 +183,7 @@ export default function Header() {
         className="hidden md:block overflow-hidden transition-all duration-300"
         style={{
           backgroundColor: "var(--clr-bg)",
-          maxHeight: menuOpen ? "280px" : "0",
+          maxHeight: menuOpen ? "320px" : "0",
           borderTop: menuOpen ? "1px solid var(--clr-border)" : "none",
         }}
       >
@@ -178,6 +210,28 @@ export default function Header() {
               {label}
             </Link>
           ))}
+
+          {isAdmin && onAddSection && (
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                onAddSection();
+              }}
+              className="flex items-center py-3 font-medium w-full"
+              style={{
+                background: "none",
+                border: "none",
+                fontSize: "0.95rem",
+                fontFamily: "'Lato', sans-serif",
+                color: "var(--clr-primary)",
+                cursor: "pointer",
+                textAlign: "left",
+                padding: "0.75rem 0",
+              }}
+            >
+              + Add Section
+            </button>
+          )}
         </nav>
       </div>
     </header>

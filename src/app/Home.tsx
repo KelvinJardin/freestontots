@@ -1,12 +1,19 @@
+"use client";
+
 import Header from "@/components/Header";
 import React from "react";
 
-export default function Home() {
+interface HomeProps {
+  isAdmin?: boolean;
+  onAddSection?: () => void;
+}
+
+export default function Home({ isAdmin, onAddSection }: HomeProps) {
   return (
     <div style={{ position: "relative" }}>
       {/* Header overlays hero */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 50 }}>
-        <Header />
+        <Header isAdmin={isAdmin} onAddSection={onAddSection} />
       </div>
 
       {/* Hero — full viewport height */}
