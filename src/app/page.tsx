@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 // Headings that must always exist in the rendered page (created on first edit)
-const REQUIRED_HEADINGS = ["About", "Accreditations", "Mission", "Open Times", "Term Dates", "Blog", "Gallery", "Reviews", "Contact"];
+const REQUIRED_HEADINGS = ["About", "Mission", "Open Times", "Term Dates", "Blog", "Gallery", "Reviews", "Contact"];
 
 export default async function FreestonTotsPage() {
   const session = await auth();

@@ -139,10 +139,9 @@ function ZoomImg({ src, alt, style }: { src: string; alt: string; style: React.C
   );
 }
 
-function RichText({ text }: { text: string }) {
+function RichText({ text }: Readonly<{ text: string }>) {
   const lines = text.split("\n");
 
-  // Check if the entire text is image-only lines (e.g. Accreditations section)
   const allLinesAreImageOnly = lines.every((line) => {
     if (line.trim() === "") return true;
     const segs = parseLineSegments(line);
