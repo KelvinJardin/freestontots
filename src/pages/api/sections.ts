@@ -30,9 +30,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       await Promise.all(
         orderedHeadings.map((heading, index) =>
-          prisma.content.updateMany({
+          prisma.content.upsert({
             where: { heading },
-            data: { order: index },
+            update: { order: index },
+            create: { heading, order: index },
           })
         )
       );
