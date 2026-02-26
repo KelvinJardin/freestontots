@@ -46,3 +46,7 @@ db.db*
 
 # pnpm
 .pnpm-store
+
+# uploaded files
+/public/uploads/
+/uploads/
