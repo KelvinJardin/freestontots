@@ -96,7 +96,7 @@ export default function Gallery({ images: initialImages, user }: GalleryProps) {
                             }}
                         >
                             {galleryImages.map((img, i) => (
-                                <div key={img.id} style={{ width: "100%", position: "relative", aspectRatio: "16/10", lineHeight: 0 }}>
+                                <div key={img.id} style={{ width: "100%", position: "relative", aspectRatio: "16/10", lineHeight: 0, backgroundColor: "var(--clr-bg)", padding: 12 }}>
                                     <Image
                                         src={img.url}
                                         alt={`Gallery image ${i + 1}`}
