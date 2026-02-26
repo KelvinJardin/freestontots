@@ -143,6 +143,7 @@ model Review {
   content   String   @db.Text
   stars     Int
   published Boolean  @default(false)
+  approved  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

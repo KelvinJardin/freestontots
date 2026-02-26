@@ -25,21 +25,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (req.method === 'PATCH') {
-        const { userId, reviewId, published } = req.body as {
+        const { userId, reviewId, published, approve } = req.body as {
             userId?: string;
             reviewId?: string;
             published?: boolean;
+            approve?: boolean;
         };
-        if (!userId || !reviewId || published === undefined) {
+        if (!userId || !reviewId) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
         const requester = await prisma.user.findFirst({ where: { id: userId } });
         if (!requester?.admin) return res.status(403).json({ error: 'Unauthorized' });
 
+        const data = approve
+            ? { approved: true, published: true }
+            : { published };
+
         const review = await prisma.review.update({
             where: { id: reviewId },
-            data: { published },
+            data,
         });
         return res.status(200).json(review);
     }

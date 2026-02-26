@@ -35,6 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             content: content.trim(),
             stars,
             published: true,
+            approved: true,
         },
     });
 

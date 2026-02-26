@@ -119,7 +119,7 @@ function ReviewRow({
     deleting: boolean;
     approvingId: string | null;
 }) {
-    const isPending = !review.published;
+    const isPending = !review.approved;
 
     return (
         <Box
@@ -213,34 +213,19 @@ function ReviewRow({
                     </IconButton>
                 )}
 
-                {/* Hide/Show toggle (published reviews only) */}
+                {/* Hide/Show toggle (approved reviews only) */}
                 {!isPending && (
                     <IconButton
                         size="small"
                         onClick={() => onToggle(review)}
                         disabled={togglingId === review.id}
-                        title="Hide review"
+                        title={review.published ? "Hide review" : "Show review"}
                         sx={{ color: "#64748b", "&:hover": { bgcolor: "rgba(0,0,0,0.04)" } }}
                     >
                         {togglingId === review.id ? (
                             <CircularProgress size={14} sx={{ color: "#5BB8E8" }} />
-                        ) : (
+                        ) : review.published ? (
                             <VisibilityOffIcon sx={{ fontSize: 16 }} />
-                        )}
-                    </IconButton>
-                )}
-
-                {/* Reject toggle for pending (sets published back to false — here it just hides via delete or re-unpublish) */}
-                {isPending && (
-                    <IconButton
-                        size="small"
-                        onClick={() => onToggle(review)}
-                        disabled={togglingId === review.id}
-                        title="Publish review without approving (keep hidden)"
-                        sx={{ color: "#64748b", "&:hover": { bgcolor: "rgba(0,0,0,0.04)" } }}
-                    >
-                        {togglingId === review.id ? (
-                            <CircularProgress size={14} sx={{ color: "#5BB8E8" }} />
                         ) : (
                             <VisibilityIcon sx={{ fontSize: 16 }} />
                         )}
@@ -412,7 +397,7 @@ export default function ReviewManagerModal({
             const res = await fetch("/api/reviews", {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId: user.id, reviewId: review.id, published: true }),
+                body: JSON.stringify({ userId: user.id, reviewId: review.id, approve: true }),
             });
             if (!res.ok) throw new Error("Approve failed");
             const updated: Review = await res.json();
@@ -465,9 +450,10 @@ export default function ReviewManagerModal({
 
     const isFormValid = form.reviewer.trim().length > 0 && form.content.trim().length > 0 && form.stars >= 1;
 
-    // Split reviews into pending (unpublished) and published
-    const pendingReviews = reviews.filter((r) => !r.published);
-    const publishedReviews = reviews.filter((r) => r.published);
+    // pending = never approved; hidden = approved but not visible; published = approved + visible
+    const pendingReviews = reviews.filter((r) => !r.approved);
+    const publishedReviews = reviews.filter((r) => r.approved && r.published);
+    const hiddenReviews = reviews.filter((r) => r.approved && !r.published);
 
     const rowProps = {
         togglingId,
@@ -666,6 +652,33 @@ export default function ReviewManagerModal({
                                         </Box>
                                     )}
                                 </Box>
+
+                                {/* Hidden Section */}
+                                {hiddenReviews.length > 0 && (
+                                    <Box>
+                                        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1, px: 1 }}>
+                                            <Box sx={{ width: 10, height: 10, borderRadius: "50%", bgcolor: "#94a3b8", flexShrink: 0 }} />
+                                            <Typography fontSize="0.78rem" fontWeight={700} fontFamily="'Nunito', sans-serif" sx={{ color: "#475569", textTransform: "uppercase", letterSpacing: "0.04em" }}>
+                                                Hidden
+                                            </Typography>
+                                            <Box sx={{ ml: 0.5, px: 0.9, py: 0.1, bgcolor: "rgba(148,163,184,0.2)", borderRadius: 9999, fontSize: "0.7rem", fontWeight: 700, color: "#475569", lineHeight: 1.6 }}>
+                                                {hiddenReviews.length}
+                                            </Box>
+                                        </Box>
+                                        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                                            {hiddenReviews.map((review) => (
+                                                <ReviewRow
+                                                    key={review.id}
+                                                    review={review}
+                                                    onEdit={openEdit}
+                                                    onToggle={handleToggle}
+                                                    onDelete={handleDelete}
+                                                    {...rowProps}
+                                                />
+                                            ))}
+                                        </Box>
+                                    </Box>
+                                )}
 
                                 {reviews.length === 0 && (
                                     <Typography fontSize="0.9rem" color="text.secondary" textAlign="center" py={4}>

@@ -277,7 +277,7 @@ export default function Reviews({ initialReviews, user, loggedIn, sessionUserId,
                     open={submitOpen}
                     onClose={() => setSubmitOpen(false)}
                     sessionUserId={sessionUserId}
-                    reviewerName={sessionUserName ?? ""}
+                    reviewerName={(sessionUserName ?? "").split(" ")[0]}
                     onSuccess={handleSubmitSuccess}
                 />
             )}
