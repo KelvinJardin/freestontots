@@ -25,7 +25,7 @@ export default function OpenTimesContainer({ times, user }: OpenTimesProps) {
         style={{
           borderRadius: 12,
           overflow: "hidden",
-          boxShadow: "0 1px 8px rgba(45,36,25,0.08), 0 1px 2px rgba(45,36,25,0.04)",
+          boxShadow: "0 1px 8px rgba(26,46,59,0.08), 0 1px 2px rgba(26,46,59,0.04)",
           border: "1px solid var(--clr-border)",
         }}
       >

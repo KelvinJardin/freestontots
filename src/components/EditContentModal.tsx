@@ -68,7 +68,7 @@ const EditContentModal: React.FC<EditContentModalProps> = ({
           </IconButton>
         </Box>
 
-        <Box sx={{ width: 32, height: 3, borderRadius: 9, bgcolor: "#C8693A", mb: 3 }} />
+        <Box sx={{ width: 32, height: 3, borderRadius: 9, bgcolor: "#5BB8E8", mb: 3 }} />
 
         <TextField
           label="Subheading"
@@ -108,9 +108,9 @@ const EditContentModal: React.FC<EditContentModalProps> = ({
             onClick={handleSave}
             size="small"
             sx={{
-              bgcolor: "#C8693A",
+              bgcolor: "#5BB8E8",
               color: "#fff",
-              "&:hover": { bgcolor: "#A8532A", color: "#fff" },
+              "&:hover": { bgcolor: "#3DA3D9", color: "#fff" },
               borderRadius: 2,
               boxShadow: "none",
             }}

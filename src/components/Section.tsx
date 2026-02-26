@@ -46,7 +46,7 @@ export default function Section({
               style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
             >
               <h2
-                className="font-bold text-center group-hover:text-[#C8693A] transition-colors"
+                className="font-bold text-center group-hover:text-[#5BB8E8] transition-colors"
                 style={{
                   fontSize: "1.9rem",
                   lineHeight: 1.2,

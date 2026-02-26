@@ -127,7 +127,7 @@ export default function Home() {
                 borderRadius: "9999px",
                 fontSize: "0.95rem",
                 fontFamily: "'Lato', sans-serif",
-                boxShadow: "0 4px 20px rgba(200,105,58,0.45)",
+                boxShadow: "0 4px 20px rgba(91,184,232,0.45)",
               }}
             >
               Learn More

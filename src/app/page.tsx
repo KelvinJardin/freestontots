@@ -141,7 +141,7 @@ export default async function FreestonTotsPage() {
 
       <footer
         style={{
-          backgroundColor: "#2D2419",
+          backgroundColor: "#1A2E3B",
           padding: "1.5rem",
           textAlign: "center",
         }}

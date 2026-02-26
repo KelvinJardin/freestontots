@@ -1,15 +1,15 @@
 :root {
-  --clr-primary: #C8693A;
-  --clr-primary-light: #F0956A;
-  --clr-secondary: #4A8B6E;
-  --clr-secondary-light: #7BBFA0;
-  --clr-accent: #F0B429;
-  --clr-bg: #FFFBF4;
-  --clr-surface: #FFF6EC;
-  --clr-surface-alt: #F5F0E8;
-  --clr-text: #2D2419;
-  --clr-text-muted: #7A6148;
-  --clr-border: #E8D5C0;
+  --clr-primary: #5BB8E8;
+  --clr-primary-light: #8ED0F2;
+  --clr-secondary: #4A8B8B;
+  --clr-secondary-light: #7BBFBF;
+  --clr-accent: #F5C842;
+  --clr-bg: #F4FBFF;
+  --clr-surface: #EAF5FD;
+  --clr-surface-alt: #DFF0FA;
+  --clr-text: #1A2E3B;
+  --clr-text-muted: #5A7A8A;
+  --clr-border: #C0DCEA;
 }
 
 body {
@@ -22,9 +22,12 @@ body {
 
 * {
   box-sizing: border-box;
-  line-height: normal;
   font-family: inherit;
-  margin: unset;
+}
+
+/* Scope resets away from MUI components */
+*:not(.MuiInputBase-root):not(.MuiInputBase-input):not(.MuiFormLabel-root):not(.MuiButtonBase-root) {
+  line-height: normal;
 }
 
 a {
@@ -37,15 +40,6 @@ ul {
   margin-inline: unset !important;
   padding: 0;
   list-style: none;
-}
-
-input {
-  background-color: transparent;
-  width: 100%;
-}
-
-input:focus {
-  outline: none;
 }
 
 table {

@@ -77,7 +77,7 @@ export default function Gallery({ images: initialImages, user }: GalleryProps) {
                         style={{
                             borderRadius: 20,
                             overflow: "hidden",
-                            boxShadow: "0 8px 40px rgba(45,36,25,0.15)",
+                            boxShadow: "0 8px 40px rgba(26,46,59,0.15)",
                             border: "2px solid var(--clr-border)",
                         }}
                     >

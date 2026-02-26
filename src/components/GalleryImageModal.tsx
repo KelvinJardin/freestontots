@@ -137,7 +137,7 @@ export default function GalleryImageModal({ open, onClose, user, onImagesChange 
                                 <CloseIcon fontSize="small" />
                             </IconButton>
                         </Box>
-                        <Box sx={{ width: 32, height: 3, borderRadius: 9, bgcolor: "#C8693A" }} />
+                        <Box sx={{ width: 32, height: 3, borderRadius: 9, bgcolor: "#5BB8E8" }} />
                     </Box>
 
                     {/* Scrollable body */}
@@ -146,22 +146,22 @@ export default function GalleryImageModal({ open, onClose, user, onImagesChange 
                         <Box
                             {...getRootProps()}
                             sx={{
-                                border: `2px dashed ${isDragActive ? "#C8693A" : "#e2e8f0"}`,
+                                border: `2px dashed ${isDragActive ? "#5BB8E8" : "#e2e8f0"}`,
                                 borderRadius: 2,
                                 p: 3,
                                 textAlign: "center",
                                 cursor: "pointer",
-                                bgcolor: isDragActive ? "rgba(200,105,58,0.05)" : "#fafafa",
+                                bgcolor: isDragActive ? "rgba(91,184,232,0.05)" : "#fafafa",
                                 transition: "all 0.2s",
-                                "&:hover": { borderColor: "#C8693A", bgcolor: "rgba(200,105,58,0.04)" },
+                                "&:hover": { borderColor: "#5BB8E8", bgcolor: "rgba(91,184,232,0.04)" },
                             }}
                         >
                             <input {...getInputProps()} />
                             {uploading ? (
-                                <CircularProgress size={28} sx={{ color: "#C8693A" }} />
+                                <CircularProgress size={28} sx={{ color: "#5BB8E8" }} />
                             ) : (
                                 <>
-                                    <CloudUploadIcon sx={{ color: "#C8693A", mb: 1, fontSize: 36 }} />
+                                    <CloudUploadIcon sx={{ color: "#5BB8E8", mb: 1, fontSize: 36 }} />
                                     <Typography fontSize="0.88rem" color="text.secondary">
                                         {isDragActive ? "Drop images here…" : "Drag & drop images, or click to select"}
                                     </Typography>
@@ -171,7 +171,7 @@ export default function GalleryImageModal({ open, onClose, user, onImagesChange 
 
                         {/* Legend */}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                            <CheckCircleIcon sx={{ color: "#C8693A", fontSize: 18 }} />
+                            <CheckCircleIcon sx={{ color: "#5BB8E8", fontSize: 18 }} />
                             <Typography fontSize="0.8rem" color="text.secondary">
                                 = shown in gallery &nbsp;·&nbsp; click an image to toggle · click <DeleteIcon sx={{ fontSize: 14, verticalAlign: "middle" }} /> to delete
                             </Typography>
@@ -180,7 +180,7 @@ export default function GalleryImageModal({ open, onClose, user, onImagesChange 
                         {/* Image grid */}
                         {loading ? (
                             <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-                                <CircularProgress sx={{ color: "#C8693A" }} />
+                                <CircularProgress sx={{ color: "#5BB8E8" }} />
                             </Box>
                         ) : images.length === 0 ? (
                             <Typography fontSize="0.9rem" color="text.secondary" textAlign="center" py={4}>
@@ -203,8 +203,8 @@ export default function GalleryImageModal({ open, onClose, user, onImagesChange 
                                             borderRadius: 2,
                                             overflow: "hidden",
                                             cursor: "pointer",
-                                            border: img.inGallery ? "2.5px solid #C8693A" : "2.5px solid transparent",
-                                            boxShadow: img.inGallery ? "0 0 0 2px rgba(200,105,58,0.25)" : "0 2px 8px rgba(0,0,0,0.08)",
+                                            border: img.inGallery ? "2.5px solid #5BB8E8" : "2.5px solid transparent",
+                                            boxShadow: img.inGallery ? "0 0 0 2px rgba(91,184,232,0.25)" : "0 2px 8px rgba(0,0,0,0.08)",
                                             opacity: togglingId === img.id ? 0.6 : 1,
                                             transition: "all 0.2s",
                                             aspectRatio: "4/3",
@@ -225,7 +225,7 @@ export default function GalleryImageModal({ open, onClose, user, onImagesChange 
                                         {/* In-gallery badge */}
                                         {img.inGallery && (
                                             <Box sx={{ position: "absolute", top: 5, left: 5, pointerEvents: "none" }}>
-                                                <CheckCircleIcon sx={{ color: "#C8693A", fontSize: 20, filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.4))" }} />
+                                                <CheckCircleIcon sx={{ color: "#5BB8E8", fontSize: 20, filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.4))" }} />
                                             </Box>
                                         )}
 
@@ -253,7 +253,7 @@ export default function GalleryImageModal({ open, onClose, user, onImagesChange 
                                                 display: "flex", alignItems: "center", justifyContent: "center",
                                                 bgcolor: "rgba(255,255,255,0.5)",
                                             }}>
-                                                <CircularProgress size={24} sx={{ color: "#C8693A" }} />
+                                                <CircularProgress size={24} sx={{ color: "#5BB8E8" }} />
                                             </Box>
                                         )}
                                     </Box>

@@ -13,7 +13,7 @@ export default async function LoginPage() {
     <div
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #FFFBF4 0%, #FFF0D9 50%, #FFE2BE 100%)",
+        background: "linear-gradient(135deg, #F4FBFF 0%, #DFF0FA 50%, #C8E8F7 100%)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -26,7 +26,7 @@ export default async function LoginPage() {
           maxWidth: 380,
           backgroundColor: "#fff",
           borderRadius: 20,
-          boxShadow: "0 8px 40px rgba(200,105,58,0.12)",
+          boxShadow: "0 8px 40px rgba(91,184,232,0.15)",
           border: "1px solid var(--clr-border)",
           padding: "2.5rem 2rem",
           display: "flex",

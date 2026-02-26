@@ -30,7 +30,7 @@ export default function Header() {
       style={{
         backgroundColor: scrolled || menuOpen ? "var(--clr-bg)" : "transparent",
         boxShadow: scrolled || menuOpen
-          ? "0 2px 16px rgba(200,105,58,0.12)"
+          ? "0 2px 16px rgba(91,184,232,0.18)"
           : "none",
         borderBottom: scrolled || menuOpen
           ? "2px solid var(--clr-primary)"
