@@ -18,6 +18,8 @@ RUN pnpm install prisma && \
     npx prisma generate && \
     pnpm build
 
+RUN mkdir -p /app/uploads
+
 ARG ENV_VARIABLE
 ENV ENV_VARIABLE=${ENV_VARIABLE}
 ARG NEXT_PUBLIC_ENV_VARIABLE

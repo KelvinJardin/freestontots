@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!image) return res.status(404).json({ error: 'Image not found' });
 
     // Delete the file from disk
-    const filePath = path.join(process.cwd(), 'public', 'uploads', image.filename);
+    const filePath = path.join(process.cwd(), 'uploads', image.filename);
     if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
     }
