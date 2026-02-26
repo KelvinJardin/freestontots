@@ -17,6 +17,7 @@ interface PageClientProps {
   isAdmin: boolean;
   loggedIn: boolean;
   sessionUserId?: string;
+  sessionUserName?: string;
 }
 
 export default function PageClient({
@@ -29,6 +30,7 @@ export default function PageClient({
   isAdmin,
   loggedIn,
   sessionUserId,
+  sessionUserName,
 }: PageClientProps) {
   const [addModalOpen, setAddModalOpen] = useState(false);
 
@@ -48,6 +50,7 @@ export default function PageClient({
         isAdmin={isAdmin}
         loggedIn={loggedIn}
         sessionUserId={sessionUserId}
+        sessionUserName={sessionUserName}
         onAddSection={() => setAddModalOpen(true)}
         addModalOpen={addModalOpen}
         onAddModalClose={() => setAddModalOpen(false)}

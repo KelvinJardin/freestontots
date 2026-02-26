@@ -84,6 +84,7 @@ export default async function FreestonTotsPage() {
         isAdmin={isAdmin}
         loggedIn={!!session?.user}
         sessionUserId={session?.user?.id ?? undefined}
+        sessionUserName={session?.user?.name ?? undefined}
       />
 
       <footer
@@ -101,7 +102,7 @@ export default async function FreestonTotsPage() {
             opacity: 0.75,
           }}
         >
-          &copy; 2025 Freeston Tots
+          &copy; {(new Date()).getFullYear()} Freeston Tots
         </p>
       </footer>
     </div>

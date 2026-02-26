@@ -12,6 +12,7 @@ interface ReviewsProps {
     user?: { id?: string; admin?: boolean };
     loggedIn?: boolean;
     sessionUserId?: string;
+    sessionUserName?: string;
 }
 
 function Stars({ count }: { count: number }) {
@@ -59,7 +60,7 @@ function PencilIcon() {
     );
 }
 
-export default function Reviews({ initialReviews, user, loggedIn, sessionUserId }: ReviewsProps) {
+export default function Reviews({ initialReviews, user, loggedIn, sessionUserId, sessionUserName }: ReviewsProps) {
     const [reviews, setReviews] = useState<Review[]>(initialReviews);
     const [managerOpen, setManagerOpen] = useState(false);
     const [loginPromptOpen, setLoginPromptOpen] = useState(false);
@@ -276,6 +277,7 @@ export default function Reviews({ initialReviews, user, loggedIn, sessionUserId 
                     open={submitOpen}
                     onClose={() => setSubmitOpen(false)}
                     sessionUserId={sessionUserId}
+                    reviewerName={sessionUserName ?? ""}
                     onSuccess={handleSubmitSuccess}
                 />
             )}

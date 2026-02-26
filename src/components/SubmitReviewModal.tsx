@@ -16,6 +16,7 @@ interface SubmitReviewModalProps {
     open: boolean;
     onClose: () => void;
     sessionUserId: string;
+    reviewerName: string;
     onSuccess: () => void;
 }
 
@@ -57,18 +58,17 @@ export default function SubmitReviewModal({
     open,
     onClose,
     sessionUserId,
+    reviewerName,
     onSuccess,
 }: SubmitReviewModalProps) {
-    const [reviewer, setReviewer] = useState("");
     const [stars, setStars] = useState(5);
     const [content, setContent] = useState("");
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const isValid = reviewer.trim().length > 0 && content.trim().length > 0 && stars >= 1;
+    const isValid = content.trim().length > 0 && stars >= 1;
 
     const handleClose = () => {
-        setReviewer("");
         setStars(5);
         setContent("");
         setError(null);
@@ -83,7 +83,7 @@ export default function SubmitReviewModal({
             const res = await fetch("/api/reviews/submit", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ sessionUserId, reviewer: reviewer.trim(), content: content.trim(), stars }),
+                body: JSON.stringify({ sessionUserId, reviewer: reviewerName, content: content.trim(), stars }),
             });
             if (!res.ok) {
                 const data = await res.json();
@@ -143,15 +143,15 @@ export default function SubmitReviewModal({
 
                 {/* Form */}
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
-                    <TextField
-                        label="Your name"
-                        value={reviewer}
-                        onChange={(e) => setReviewer(e.target.value)}
-                        fullWidth
-                        required
-                        size="small"
-                        inputProps={{ maxLength: 120 }}
-                    />
+                    {/* Read-only name from session */}
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, px: 1.5, py: 1, borderRadius: 2, bgcolor: "var(--clr-surface-alt)", border: "1px solid var(--clr-border)" }}>
+                        <Typography fontSize="0.8rem" color="text.secondary" fontFamily="'Lato', sans-serif" sx={{ flexShrink: 0 }}>
+                            Reviewing as
+                        </Typography>
+                        <Typography fontSize="0.88rem" fontWeight={700} fontFamily="'Nunito', sans-serif" color="var(--clr-text)" noWrap>
+                            {reviewerName || "You"}
+                        </Typography>
+                    </Box>
 
                     <Box>
                         <Typography

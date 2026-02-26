@@ -52,6 +52,7 @@ interface SectionsRendererProps {
   isAdmin: boolean;
   loggedIn: boolean;
   sessionUserId?: string;
+  sessionUserName?: string;
   onAddSection: () => void;
   addModalOpen: boolean;
   onAddModalClose: () => void;
@@ -67,6 +68,7 @@ export default function SectionsRenderer({
   isAdmin,
   loggedIn,
   sessionUserId,
+  sessionUserName,
   onAddSection,
   addModalOpen,
   onAddModalClose,
@@ -92,6 +94,7 @@ export default function SectionsRenderer({
           user={userProp}
           loggedIn={loggedIn}
           sessionUserId={sessionUserId}
+          sessionUserName={sessionUserName}
         />
       );
     }
