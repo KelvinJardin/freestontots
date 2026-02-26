@@ -96,15 +96,14 @@ export default function Gallery({ images: initialImages, user }: GalleryProps) {
                             }}
                         >
                             {galleryImages.map((img, i) => (
-                                <div key={img.id} style={{ width: "100%", lineHeight: 0 }}>
+                                <div key={img.id} style={{ width: "100%", position: "relative", aspectRatio: "16/10", lineHeight: 0 }}>
                                     <Image
                                         src={img.url}
                                         alt={`Gallery image ${i + 1}`}
-                                        width={760}
-                                        height={470}
+                                        fill
                                         unoptimized
                                         className="object-cover"
-                                        style={{ width: "100%", height: "auto", display: "block" }}
+                                        style={{ display: "block" }}
                                     />
                                 </div>
                             ))}
