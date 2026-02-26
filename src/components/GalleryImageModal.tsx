@@ -218,6 +218,7 @@ export default function GalleryImageModal({ open, onClose, user, onImagesChange 
                                             src={img.url}
                                             alt={img.filename}
                                             fill
+                                            unoptimized
                                             className="object-cover"
                                             sizes="180px"
                                         />

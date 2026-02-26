@@ -102,9 +102,9 @@ export default function Gallery({ images: initialImages, user }: GalleryProps) {
                                         alt={`Gallery image ${i + 1}`}
                                         width={760}
                                         height={470}
+                                        unoptimized
                                         className="object-cover"
                                         style={{ width: "100%", height: "auto", display: "block" }}
-                                        sizes="(max-width: 600px) 100vw, 760px"
                                     />
                                 </div>
                             ))}

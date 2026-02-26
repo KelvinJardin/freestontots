@@ -394,6 +394,7 @@ function ListPanel({ posts, togglingId, onEdit, onToggle, onDelete, onCreate, fo
                                     src={post.images[0].url}
                                     alt={post.title}
                                     fill
+                                    unoptimized
                                     className="object-cover"
                                     sizes="56px"
                                 />
@@ -587,6 +588,7 @@ function FormPanel({
                                     src={img.url}
                                     alt={img.filename}
                                     fill
+                                    unoptimized
                                     className="object-cover"
                                     sizes="90px"
                                 />
