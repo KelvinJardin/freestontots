@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/app/db';
+import { sendNewReviewNotification } from '@/lib/email';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
@@ -38,6 +39,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             published: false,
         },
     });
+
+    // Notify admins — fire-and-forget so email failure never blocks the response
+    prisma.user
+        .findMany({ where: { admin: true }, select: { email: true } })
+        .then((admins) => {
+            const emails = admins.map((a) => a.email).filter(Boolean) as string[];
+            return sendNewReviewNotification(emails, {
+                reviewer: review.reviewer,
+                content: review.content,
+                stars: review.stars,
+            });
+        })
+        .catch((err) => console.error('[review notification]', err));
 
     return res.status(200).json(review);
 }
