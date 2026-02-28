@@ -162,14 +162,19 @@ export default function SectionsRenderer({
     setSections((prev) => [...prev, newContent]);
   };
 
+  const visibleSections = sections.filter((s) => {
+    if (s.heading === "Blog" && !isAdmin && blogPosts.length === 0) return false;
+    return true;
+  });
+
   return (
     <>
-      {sections.map((sectionContent, index) => {
+      {visibleSections.map((sectionContent, index) => {
         const heading = sectionContent.heading;
         const SectionChild = buildWithContent(heading);
         const isFixed = FIXED_SECTIONS.includes(heading);
         const currentBg = sectionBgAlternate[index % 2];
-        const nextBg = sections[index + 1]
+        const nextBg = visibleSections[index + 1]
           ? sectionBgAlternate[(index + 1) % 2]
           : null;
 
@@ -188,7 +193,7 @@ export default function SectionsRenderer({
                 !isFixed && isAdmin ? () => handleDelete(heading) : undefined
               }
               isFirst={index === 0}
-              isLast={index === sections.length - 1}
+              isLast={index === visibleSections.length - 1}
             >
               {SectionChild}
             </Section>

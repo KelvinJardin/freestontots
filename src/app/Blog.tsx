@@ -14,6 +14,7 @@ interface BlogProps {
 }
 
 export default function Blog({ initialPosts, user }: BlogProps) {
+    const admin = user?.admin;
     const [posts, setPosts] = useState<BlogPostWithImages[]>(initialPosts);
     const [modalOpen, setModalOpen] = useState(false);
     const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
@@ -87,7 +88,11 @@ export default function Blog({ initialPosts, user }: BlogProps) {
                         padding: "2rem 0",
                     }}
                 >
-                    No posts published yet. Check back soon!
+                    {
+                        admin
+                            ? "No blog posts yet. Click 'Manage Blog' to create your first post!"
+                            : "No blog posts published yet. Check back soon!"
+                    }
                 </p>
             ) : (
                 <div
