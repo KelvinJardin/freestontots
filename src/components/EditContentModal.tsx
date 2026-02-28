@@ -156,6 +156,16 @@ const EditContentModal: React.FC<EditContentModalProps> = ({
         <Box sx={{ width: 32, height: 3, borderRadius: 9, bgcolor: "#5BB8E8", mb: 3 }} />
 
         <TextField
+          label="Heading"
+          name="heading"
+          value={updatedContent?.heading || ""}
+          onChange={handleChange}
+          fullWidth
+          margin="dense"
+          size="small"
+        />
+
+        <TextField
           label="Subheading"
           name="subHeading"
           value={updatedContent?.subHeading || ""}

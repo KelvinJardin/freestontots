@@ -90,7 +90,7 @@ export default function Blog({ initialPosts, user }: BlogProps) {
                 >
                     {
                         admin
-                            ? "No blog posts yet. Click 'Manage Blog' to create your first post!"
+                            ? "No blog posts yet. Click 'Manage Blog' to create your first post! (Currently hidden to visitors)"
                             : "No blog posts published yet. Check back soon!"
                     }
                 </p>

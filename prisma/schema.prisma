@@ -91,12 +91,13 @@ model Authenticator {
 }
 
 model Content {
-  id         String   @id @default(cuid())
-  heading    String   @unique
-  subHeading String?
-  text       String?  @db.LongText
-  order      Int      @default(0)
-  updatedAt  DateTime @updatedAt
+  id          String   @id @default(cuid())
+  heading     String   @unique
+  sectionType String?
+  subHeading  String?
+  text        String?  @db.LongText
+  order       Int      @default(0)
+  updatedAt   DateTime @updatedAt
 }
 
 model OpenTimes {

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/app/db';
 
-const FIXED_SECTIONS = ["Open Times", "Gallery", "Contact"];
+const FIXED_TYPES = new Set(["Open Times", "Blog", "Gallery", "Reviews", "Contact"]);
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -43,15 +43,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     if (action === 'delete') {
-      const { heading } = req.body as { heading: string };
+      const { heading, sectionType } = req.body as { heading: string; sectionType?: string | null };
 
       if (!heading) {
         res.status(400).json({ error: 'heading is required' });
         return;
       }
 
-      if (FIXED_SECTIONS.includes(heading)) {
-        res.status(400).json({ error: `Cannot delete fixed section: ${heading}` });
+      if (FIXED_TYPES.has(sectionType ?? heading)) {
+        res.status(400).json({ error: `Cannot delete fixed section` });
         return;
       }
 

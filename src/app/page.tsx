@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   description: "Freeston Tots Preschool"
 };
 
-// Headings that must always exist in the rendered page (created on first edit)
-const REQUIRED_HEADINGS = ["About", "Mission", "Open Times", "Term Dates", "Blog", "Gallery", "Reviews", "Contact"];
+// Canonical section types that must always exist (even if the admin renames their heading)
+const REQUIRED_TYPES = ["About", "Mission", "Open Times", "Term Dates", "Blog", "Gallery", "Reviews", "Contact"];
 
 export default async function FreestonTotsPage() {
   const session = await auth();
@@ -43,17 +43,21 @@ export default async function FreestonTotsPage() {
     orderBy: { createdAt: "desc" },
   });
 
-  // Build a map for quick lookup
+  // Build maps for quick lookup — by heading and by sectionType
   const contentMap = new Map(allContents.map((c) => [c.heading, c]));
+  const contentTypeMap = new Map(
+    allContents.filter((c) => c.sectionType).map((c) => [c.sectionType!, c])
+  );
 
-  // Ensure required headings are represented. If they don't exist in DB yet,
-  // create placeholder objects so the page renders correctly.
+  // Ensure all required section types exist. If a section has been renamed its
+  // sectionType still matches, so no duplicate placeholder is created.
   const now = new Date();
-  const requiredPlaceholders = REQUIRED_HEADINGS
-    .filter((h) => !contentMap.has(h))
-    .map((h, i) => ({
-      id: `__placeholder__${h}`,
-      heading: h,
+  const requiredPlaceholders = REQUIRED_TYPES
+    .filter((t) => !contentTypeMap.has(t) && !contentMap.has(t))
+    .map((t, i) => ({
+      id: `__placeholder__${t}`,
+      heading: t,
+      sectionType: t,
       subHeading: null,
       text: null,
       order: allContents.length + i,

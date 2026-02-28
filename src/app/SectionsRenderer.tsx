@@ -19,8 +19,8 @@ import {
 
 type BlogPostWithImages = BlogPost & { images: BlogImage[] };
 
-// Sections that have special child components and cannot be deleted
-const FIXED_SECTIONS = ["Open Times", "Blog", "Gallery", "Reviews", "Contact"];
+// Section types that have special child components and cannot be deleted
+const FIXED_TYPES = ["Open Times", "Blog", "Gallery", "Reviews", "Contact"];
 
 const sectionBgAlternate = ["var(--clr-bg)", "var(--clr-surface-alt)"];
 
@@ -77,17 +77,18 @@ export default function SectionsRenderer({
 
   const userProp = user ? { id: user.id, admin: user.admin } : undefined;
 
-  const buildWithContent = (heading: string): React.JSX.Element | undefined => {
-    if (heading === "Blog") {
+  const buildWithContent = (sectionContent: Content): React.JSX.Element | undefined => {
+    const type = sectionContent.sectionType ?? sectionContent.heading;
+    if (type === "Blog") {
       return <Blog initialPosts={blogPosts} user={userProp} />;
     }
-    if (heading === "Gallery") {
+    if (type === "Gallery") {
       return <Gallery images={galleryImages} user={userProp} />;
     }
-    if (heading === "Open Times") {
+    if (type === "Open Times") {
       return <OpenTimes times={openTimes} user={userProp} />;
     }
-    if (heading === "Reviews") {
+    if (type === "Reviews") {
       return (
         <Reviews
           initialReviews={reviews}
@@ -98,7 +99,7 @@ export default function SectionsRenderer({
         />
       );
     }
-    if (heading === "Contact") {
+    if (type === "Contact") {
       return <ContactContent />;
     }
     return undefined;
@@ -136,7 +137,7 @@ export default function SectionsRenderer({
     persistOrder(next);
   };
 
-  const handleDelete = async (heading: string) => {
+  const handleDelete = async (sectionContent: Content) => {
     try {
       const response = await fetch("/api/sections", {
         method: "POST",
@@ -144,7 +145,8 @@ export default function SectionsRenderer({
         body: JSON.stringify({
           action: "delete",
           userId: user?.id,
-          heading,
+          heading: sectionContent.heading,
+          sectionType: sectionContent.sectionType,
         }),
       });
       if (!response.ok) {
@@ -152,7 +154,7 @@ export default function SectionsRenderer({
         console.error("Failed to delete section:", data.error);
         return;
       }
-      setSections((prev) => prev.filter((s) => s.heading !== heading));
+      setSections((prev) => prev.filter((s) => s.id !== sectionContent.id));
     } catch (err) {
       console.error("Failed to delete section:", err);
     }
@@ -163,16 +165,16 @@ export default function SectionsRenderer({
   };
 
   const visibleSections = sections.filter((s) => {
-    if (s.heading === "Blog" && !isAdmin && blogPosts.length === 0) return false;
+    const type = s.sectionType ?? s.heading;
+    if (type === "Blog" && !isAdmin && blogPosts.length === 0) return false;
     return true;
   });
 
   return (
     <>
       {visibleSections.map((sectionContent, index) => {
-        const heading = sectionContent.heading;
-        const SectionChild = buildWithContent(heading);
-        const isFixed = FIXED_SECTIONS.includes(heading);
+        const SectionChild = buildWithContent(sectionContent);
+        const isFixed = FIXED_TYPES.includes(sectionContent.sectionType ?? sectionContent.heading);
         const currentBg = sectionBgAlternate[index % 2];
         const nextBg = visibleSections[index + 1]
           ? sectionBgAlternate[(index + 1) % 2]
@@ -182,15 +184,15 @@ export default function SectionsRenderer({
           <React.Fragment key={sectionContent.id}>
             <Section
               style={{ backgroundColor: currentBg }}
-              heading={heading}
+              heading={sectionContent.heading}
               content={sectionContent}
               user={userProp}
-              updatable={heading !== "Gallery" && heading !== "Blog" && heading !== "Reviews"}
+              updatable
               deletable={!isFixed && isAdmin}
               onMoveUp={() => handleMoveUp(index)}
               onMoveDown={() => handleMoveDown(index)}
               onDelete={
-                !isFixed && isAdmin ? () => handleDelete(heading) : undefined
+                !isFixed && isAdmin ? () => handleDelete(sectionContent) : undefined
               }
               isFirst={index === 0}
               isLast={index === visibleSections.length - 1}
