@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable from 'formidable';
 import path from 'path';
 import fs from 'fs';
+import { put } from '@vercel/blob';
 import prisma from '@/app/db';
 
 export const config = {
@@ -16,13 +17,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 
-    const uploadDir = path.join(process.cwd(), 'uploads');
-    if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
     const form = formidable({
-        uploadDir,
+        uploadDir: '/tmp',
         keepExtensions: true,
         maxFileSize: 10 * 1024 * 1024, // 10MB
         filter: ({ mimetype }) => !!mimetype && mimetype.startsWith('image/'),
@@ -47,9 +43,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const file = fileArray[0];
     const ext = path.extname(file.originalFilename || '.jpg');
-    const uniqueName = `${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
-    const dest = path.join(uploadDir, uniqueName);
-    fs.renameSync(file.filepath, dest);
+    const uniqueName = `content/${Date.now()}-${Math.random().toString(36).slice(2)}${ext}`;
 
-    return res.status(200).json({ url: `/uploads/${uniqueName}` });
+    const buffer = fs.readFileSync(file.filepath);
+    const blob = await put(uniqueName, buffer, {
+        access: 'public',
+        contentType: file.mimetype ?? 'image/jpeg',
+    });
+    fs.unlinkSync(file.filepath);
+
+    return res.status(200).json({ url: blob.url });
 }

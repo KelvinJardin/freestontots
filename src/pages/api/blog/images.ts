@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import fs from 'fs';
+import { del } from '@vercel/blob';
 import prisma from '@/app/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -18,10 +19,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const image = await prisma.blogImage.findUnique({ where: { id: imageId } });
     if (!image) return res.status(404).json({ error: 'Image not found' });
 
-    // Delete the file from disk
-    const filePath = path.join(process.cwd(), 'uploads', image.filename);
-    if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
+    if (image.url.startsWith('/uploads/')) {
+        // Legacy local file — delete from disk
+        const filePath = path.join(process.cwd(), 'uploads', image.filename);
+        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    } else {
+        // Vercel Blob URL
+        await del(image.url);
     }
 
     await prisma.blogImage.delete({ where: { id: imageId } });

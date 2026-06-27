@@ -124,7 +124,7 @@ export default function Home({ isAdmin, onAddSection }: HomeProps) {
           {/* CTA buttons */}
           <div className="flex gap-4 justify-center sm:flex-col sm:items-center sm:gap-3 animate-in-delay-2">
             <a
-              href="#About"
+              href="#Mission"
               className="font-semibold transition-all"
               style={{
                 display: "inline-block",
