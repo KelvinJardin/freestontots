@@ -24,19 +24,18 @@ services:
 
   db:
     container_name: db
-    build:
-      context: .
-      dockerfile: db.Dockerfile
-    env_file:
-      - .env
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: freestontots
     restart: always
     networks:
       - freestontots
     volumes:
-      - db-data:/var/lib/mysql
-      - ./db/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - db-data:/var/lib/postgresql/data
     ports:
-      - '13306:3306'
+      - '5434:5432'
 
 
 volumes:
